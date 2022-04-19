@@ -6,7 +6,7 @@ sio = socketio.AsyncClient()
 
 @sio.event
 async def connect():
-    print('connected to server')
+    print("Connected")
 
 
 @sio.event
@@ -15,12 +15,16 @@ async def disconnect():
 
 
 @sio.event
-def hello(a, b, c):
-    print(a, b, c)
+def hello(data):
+    print(data)
 
+@sio.event
+def fist_connection(data):
+    print(data)
 
 async def start_server():
-    await sio.connect('http://localhost:5000', auth={'token': 'my-token'})
+    await sio.connect('http://localhost:5000', auth={'username' : 'ronan'})
+    #await sio.emit('message', {'foo': 'bar'})
     await sio.wait()
 
 
