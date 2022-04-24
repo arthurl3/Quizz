@@ -17,7 +17,12 @@ VALUES ('Staline#8762', 'dmlaonic5436w<freqzelfcives');
 INSERT INTO main."User" (name, token)
 VALUES ('Terminator#9654', 'dmlaonic5436w<fezlcfnleizcnfez');
 
+INSERT INTO main."Quizz" (title, creator)
+VALUES ('LeZ', 1);
 
+INSERT INTO main."Question" (title, phrase)
+VALUES ('Jude', 'Combien de juif à Auschwitz?');
 
-
+INSERT INTO main."Question" (title, phrase)
+VALUES ('Fuxk', 'Qui chante "Le Blues du Policeman"?');
 

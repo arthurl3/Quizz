@@ -13,26 +13,26 @@ class QuizzServer(socketio.AsyncNamespace):
     def __init__(self):
         self.call_backs()
 
-
     def call_backs(self):
         @self.sio.event
         async def connect(sid, environ, auth=None):
-            #print(f'connected sid={sid}')
-            print(environ)
+            # Condition 1 :  si token et username reçu, c'est un utilisateur connu
             if 'token' in auth and 'username' in auth:
                 token = auth['token']
                 username = auth['username']
-                to_send = self.msg.hello()
-                await self.sio.emit(self.msg.HELLO, to_send, to=sid)
+                response = self.msg.hello()
+                await self.sio.emit(self.msg.HELLO, response, to=sid)
+            # Condition 2 : si seulement username est reçu, c'est la première fois qu'un utilisateur se connecte
             elif 'username' in auth:
                 token = generate_token(35)
                 username = auth['username']
                 print(username)
-                to_send = self.msg.first_connection(token)
-                print(to_send)
-                await self.sio.emit(self.msg.FIRST_CONNECTION, to_send, to=sid)
+                response = self.msg.first_connection(token)
+                print(response)
+                await self.sio.emit(self.msg.FIRST_CONNECTION, response, to=sid)
             else:
                 raise ConnectionRefusedError('authentication failed')
+
 
         @self.sio.event
         async def disconnect(sid):
