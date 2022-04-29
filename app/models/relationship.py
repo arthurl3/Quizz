@@ -1,6 +1,6 @@
 from app.models.user import User
 from sqlalchemy import Column, Integer, ForeignKey
-from app import Base
+from . import Base
 
 class Relationship(Base):
     __tablename__ = 'Relationship'

@@ -1,18 +1,34 @@
 import json
-
+from app.models import *
 
 class Message:
     HELLO = 'hello'
     FIRST_CONNECTION = 'first'
 
-    def first_connection(self, token):
+    def first_connection(self, user):
         return json.dumps(
-            {'token': token}
+            {
+                'username': user.name,
+                'token': user.token
+             }
         )
 
-    def hello(self, username):
+    def hello(self, user):
         return json.dumps(
-            {'username': username}
+            {
+                'connected': 1
+            }
         )
+
+    def disconnect(self, user):
+        return json.dumps(
+            {
+                'connected': 0
+            }
+        )
+
+
+
+
 
 

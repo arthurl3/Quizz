@@ -1,14 +1,16 @@
-import os
+from os import environ, path, getcwd
 
 
-class Config(object):
-    ### FLASK ###
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DEBUG = True
+BASE_DIR = path.abspath(getcwd())
+DEBUG = True
+"""Create SQLAlchemy engine and session objects."""
 
-    ### SQL_ALCHEMY ###
-    # <!>For Windows only (due to \ escape, need to transform the string into a raw string by using r"{}".format<!>
-    SQLALCHEMY_DATABASE_URI =  r"{}".format(
-        'sqlite:///' + os.path.join(BASE_DIR, 'app/database/quizz.sqlite'))
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    #os.environ.get('DATABASE_URL') or
+### SQL_ALCHEMY ###
+# <!>For Windows only (due to \ escape, need to transform the string into a raw string by using r"{}".format<!>
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + BASE_DIR + '\database\quizz.sqlite'
+
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# Pas encore set
+#SQLALCHEMY_DATABASE_PEM = environ.get("SQLALCHEMY_DATABASE_PEM")
+#os.environ.get('DATABASE_URL') or

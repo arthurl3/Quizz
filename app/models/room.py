@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, ForeignKey
-from app import Base
+from . import Base
 from app.models.quizz import Quizz
 from app.models.user import User
 
