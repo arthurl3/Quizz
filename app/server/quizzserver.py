@@ -40,6 +40,13 @@ class QuizzServer(socketio.AsyncNamespace):
             self.controller.disconnect(sid)
             print('disconnected', sid)
 
+        # Handle room creation
+        # Data : {quizz: id}
+        @self.sio.event
+        async def get_all_quizz(sid, data):
+            all_quizz = self.controller.get_all_quizz(sid)
+            response = self.msg.get_all_quizz(all_quizz)
+            print('room created', sid)
 
         # Handle room creation
         # Data : {quizz: id}

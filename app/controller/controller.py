@@ -24,7 +24,7 @@ class Controller():
             return user
 
     # Disconnect a user bien deleted his entry in user_map dict
-    def disconnect_user(self, sid):
+    def disconnect(self, sid):
         del self.user_map[sid]
 
     def create_room(self, sid):
