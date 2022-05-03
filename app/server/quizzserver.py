@@ -21,7 +21,7 @@ class QuizzServer(socketio.AsyncNamespace):
                 token = auth['token']
                 user = self.controller.connect(sid, token)
                 response = self.msg.hello(user)
-                await self.sio.emit(self.msg.HELLO, response, to=sid)
+                await self.sio.emit(self.msg.CONNECT, response, to=sid)
             # Condition 2 : si seulement username est reçu, c'est la première fois qu'un utilisateur se connecte
             elif 'username' in auth:
                 username = auth['username']
@@ -37,7 +37,8 @@ class QuizzServer(socketio.AsyncNamespace):
 
         @self.sio.event
         async def disconnect(sid):
-            self.controller.disconnect(sid)
+            response = self.controller.disconnect(sid)
+            await self.sio.emit(self.msg.DISCONNECT, response, to=sid)
             print('disconnected', sid)
 
         # Handle room creation
@@ -46,6 +47,7 @@ class QuizzServer(socketio.AsyncNamespace):
         async def get_all_quizz(sid, data):
             all_quizz = self.controller.get_all_quizz(sid)
             response = self.msg.get_all_quizz(all_quizz)
+            await self.sio.emit(self.msg.GET_ALL_QUIZZ, response, to=sid)
             print('room created', sid)
 
         # Handle room creation
@@ -54,6 +56,8 @@ class QuizzServer(socketio.AsyncNamespace):
         async def create_room(sid, data):
             quizz_id = data['quizz']
             room = self.controller.create_room(sid, quizz_id)
+            response = self.msg.create_room(room)
+            await self.sio.emit(self.msg.GET_ALL_QUIZZ, response, to=sid)
             print('room created', sid)
 
         # Handle a user who join a friend room
@@ -61,8 +65,10 @@ class QuizzServer(socketio.AsyncNamespace):
         @self.sio.event
         async def join_room(sid, data):
             friend_id = data['friend']
-            join_room(sid, friend_id)
+            room = self.controller.join_room(sid, friend_id)
+            response = self.msg.join_room(room)
             print('room joined', sid)
+            await self.sio.emit(self.msg.GET_ALL_QUIZZ, response, to=sid)
 
         # Handle an add friend request
         # Data : { friend: id }

@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, String
+from sqlalchemy.orm import relationship
+
 from . import Base
 from app.models.user import User
 
@@ -7,6 +9,8 @@ class Quizz(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(255))
     creator = Column(Integer, ForeignKey('User.id'))
+
+    questions = relationship('Question', backref='quizz')
 
     # Inherited object method which displays chosen Object information (here the Client)
     def __repr__(self):

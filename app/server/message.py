@@ -2,9 +2,14 @@ import json
 from app.models import *
 
 class Message:
-    HELLO = 'hello'
-    FIRST_CONNECTION = 'first'
+    CONNECT = 'connect'
+    FIRST_CONNECTION = 'first_connection'
+    DISCONNECT = 'Disconnect'
     GET_ALL_QUIZZ = 'get_all_quizz'
+    CREATE_ROOM = 'create_room'
+    JOIN_ROOM = 'join_room'
+    ADD_FRIEND = 'add_friend'
+
 
     def first_connection(self, user):
         return json.dumps(
@@ -46,6 +51,12 @@ class Message:
         return json.dumps(
 
         )
+
+    def create_room(self, room):
+        pass
+
+    def join_room(self, room):
+        pass
 
 
 
