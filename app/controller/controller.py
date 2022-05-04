@@ -1,5 +1,10 @@
 import database
-from app.models.user import User
+from app.models import Relationship
+from app.models import Quizz
+from app.models import Question
+from app.models import User
+from app.models import Player
+from app.models import Room
 from app.controller import query
 
 class Controller():
