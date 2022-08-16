@@ -1,2 +1,3 @@
 # Quizz
- Parce que les quizz, c'est rigolo
+Simple Quizz API written in Python.
+! WIP !
